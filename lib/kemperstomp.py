@@ -1,3 +1,8 @@
+# v 1.3
+# Changes
+# use black text color for effect name
+# changing dark green color
+#
 # v 1.2
 # Changes
 # Detect Rig changes via rig date
@@ -67,11 +72,11 @@ pixel_pin = board.GP7
 LED_amount = 18
 LED = neopixel.NeoPixel(pixel_pin, LED_amount, brightness=0.3)
 
-LED.fill(0xff0000)  # set 1. status: red
+LED.fill(0xff0000)  # set boot status: red
 
 # Set Constants and initial values
 # Kemper colors
-darkgreen = (0, 100, 0)
+darkgreen = (73, 110, 41)
 green = (0, 255, 0)
 white = (255, 255, 255)
 red = (255, 0, 0)
@@ -137,7 +142,7 @@ font_H20 = bitmap_font.load_font("/fonts/H20.pcf")
 wrap_with = 220  # in pixel
 
 
-LED.fill(0xffff00)  # set 2. Status yellow
+LED.fill(0xffff00)  # set boot status yellow
 
 # Draw Effect Module DLY
 rect = Rect(1, 1, 120, 40, fill=palette[7], outline=0x0, stroke=1)
@@ -145,7 +150,7 @@ splash.append(rect)  # position splash[0] IMPORTANT!
 
 text_group_DLY = displayio.Group(scale=1, x=1, y=1)
 text_DLY = "Delay"
-text_DLY_area = label.Label(font_H20, text=text_DLY, color=0xFFFFFF, anchor_point=(0.5, 0.5), anchored_position=(60, 20))
+text_DLY_area = label.Label(font_H20, text=text_DLY, color=0x0, anchor_point=(0.5, 0.5), anchored_position=(60, 20))
 text_group_DLY.append(text_DLY_area)  # Subgroup for text scaling
 
 # Draw Effect Module REV
@@ -154,7 +159,7 @@ splash.append(rect)  # position splash[1] IMPORTANT!
 
 text_group_REV = displayio.Group(scale=1, x=120, y=1)
 text_REV = "Reverb"
-text_REV_area = label.Label(font_H20, text=text_REV, color=0xFFFFFF, anchor_point=(0.5, 0.5), anchored_position=(60, 20))
+text_REV_area = label.Label(font_H20, text=text_REV, color=0x0, anchor_point=(0.5, 0.5), anchored_position=(60, 20))
 text_group_REV.append(text_REV_area)  # Subgroup for text scaling
 
 # Draw Effect Module A
@@ -163,7 +168,7 @@ splash.append(rect)  # position splash[2] IMPORTANT!
 
 text_group_A = displayio.Group(scale=1, x=1, y=200)
 text_A = "Module A"
-text_A_area = label.Label(font_H20, text=text_A, color=0xFFFFFF, anchor_point=(0.5, 0.5), anchored_position=(60, 20))
+text_A_area = label.Label(font_H20, text=text_A, color=0x0, anchor_point=(0.5, 0.5), anchored_position=(60, 20))
 text_group_A.append(text_A_area)  # Subgroup for text scaling
 
 # Draw Effect Module A
@@ -172,7 +177,7 @@ splash.append(rect)  # position splash[3] IMPORTANT!
 
 text_group_B = displayio.Group(scale=1, x=120, y=200)
 text_B = "Module B"
-text_B_area = label.Label(font_H20, text=text_B, color=0xFFFFFF, anchor_point=(0.5, 0.5), anchored_position=(60, 20))
+text_B_area = label.Label(font_H20, text=text_B, color=0x0, anchor_point=(0.5, 0.5), anchored_position=(60, 20))
 text_group_B.append(text_B_area)  # Subgroup for text scaling
 
 # show Rig Name
