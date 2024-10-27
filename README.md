@@ -14,11 +14,12 @@ You should now see your device as MIDICAPTAIN on your computer.
 
 3. Than you can copy the files from the source (src) directory to your MIDI Captain device.
 
-With this you have installed differen firmware version to your device. By pressing a switch while turning on your MIDI captain you can choose:
+Now you have different firmware version on your device available.  
+By pressing a switch while turning on your MIDI captain you can choose:
 
-foot switch 1 - enabling USB disk for conniction to your computer
-foot switch 2 - using PaintAudio firmware for KPP 3.5
-foot switch 3 - MIDI Captain control and request values from KPP via MIDI commands
-foot switch A - bidirectional communication between KPP and MIDI Captain
+foot switch 1 - enabling USB disk for conniction to your computer  
+foot switch 2 - using PaintAudio firmware for KPP 3.5  
+foot switch 3 - MIDI Captain control and request values from KPP via MIDI commands  
+foot switch A - bidirectional communication between KPP and MIDI Captain  
 
 
