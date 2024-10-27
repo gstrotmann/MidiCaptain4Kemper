@@ -1,3 +1,19 @@
 doc/.DS_Store
+doc/images/
+src/.DS_Store
+src/fonts/.DS_Store
+src/fonts/not used/.DS_Storesrc/lib/.DS_Store
+src/lib/adafruit_bitmap_font/.DS_Store
+src/lib/adafruit_display_shapes/.DS_Store
+src/lib/adafruit_display_text/.DS_Store
+src/lib/adafruit_hid/.DS_Store
+src/lib/adafruit_imageload/.DS_Store
+src/lib/adafruit_imageload/bmp/.DS_Store
+src/lib/adafruit_imageload/pnm/.DS_Store
+src/lib/adafruit_imageload/pnm/pgm/.DS_Store
+src/lib/adafruit_midi/.DS_Store
+src/lib/adafruit_progressbar/.DS_Store
+src/lib/asyncio/.DS_Store
+src/res/.DS_Store
 .DS_Store
-.DS_Store
+
