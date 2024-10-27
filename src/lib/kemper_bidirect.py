@@ -2,6 +2,7 @@ import board
 import digitalio
 import busio
 import displayio
+import time
 from adafruit_display_text import label, wrap_text_to_pixels
 from adafruit_bitmap_font import bitmap_font
 from adafruit_display_shapes.rect import Rect
@@ -362,14 +363,25 @@ def get_module_name(x):
 # function to control neopixel segments - color in smaller brightness
 def send_beacon():
     text_Log_area.text = 'connection established'
-    # Parameter Set 2
-    # use Sysex response
+    # I use Parameter Set 2
+    
     # init off
+    # use Sysex response (on)
     # echo off
     # NOFE off
     # NOCTOR on
     # TUNEMODE on
-    # -> 0x18
+    # -> 0x32
+    
+   
+    # init off
+    # use Sysex response
+    # echo on
+    # NOFE off
+    # NOCTOR on
+    # TUNEMODE on
+    # -> 0x36
+    
     # send beacon
     midi_usb.send(SystemExclusive([0x00, 0x20, 0x33],
                                   [0x02, 0x7f, 0x7e, 0x00, 0x40, 0x02, 0x32, 0x7f]))
@@ -384,13 +396,30 @@ def send_initbeacon():
     # NOFE off
     # NOCTOR on
     # TUNEMODE on
-    # -> 0x19
+    # -> 0x33
     # send beacon
     midi_usb.send(SystemExclusive([0x00, 0x20, 0x33],
                                   [0x02, 0x7f, 0x7e, 0x00, 0x40, 0x02, 0x33, 0x04]))
     con_init = True
+    get_kpp_effect_status() # workaround while Kemper is sending false status 
     return
 
+# function to get Kemper Effect Status Infos
+def get_kpp_effect_status():
+    # after connection initialization Kemper sends two times effects slot status for DLY and REF
+    # but second message told status is off, altough status is on :-/
+    # so I trigger it here again as workaround
+    # KPP Effect Module DLY
+    # Stomp DLY Status
+    midi_usb.send(SystemExclusive([0x00, 0x20, 0x33],
+                                  [0x02, 0x7f, 0x41, 0x00, 0x3c, 0x03]))
+
+    # KPP Effekt Module REV
+    # Stomp Status
+    midi_usb.send(SystemExclusive([0x00, 0x20, 0x33],
+                                  [0x02, 0x7f, 0x41, 0x00, 0x3d, 0x03]))
+                                  
+    return
 
 # Define Switch Objects to hold data
 switch = []
@@ -528,8 +557,8 @@ while True:
                 response = list(midimsg.data)
 
                 if response[:-1] == [0x00, 0x00, 0x01, 0x00, 0x7c, 0x00, 0x00]:
-                    # TAP Meldung
-                    # mit Wechsel von 0 auf 1 an letzter Stelle
+                    # TAP Message
+                    # message changing between 0 and 1 on last digit
                     string_msg = ''
                 
                 # Rig Name
@@ -538,7 +567,7 @@ while True:
                     ascii_string = ''.join(chr(int(c)) for c in response[6:-1])
                     text_area_rig.text = "\n".join(wrap_text_to_pixels(ascii_string, wrap_with, font))
 
-
+                # effects slots
                 elif response[:-4] == [0x00, 0x00, 0x01, 0x00] and len(response) == 8:
                     if response[4] == 0x32:
                         switch_number = switch_a
