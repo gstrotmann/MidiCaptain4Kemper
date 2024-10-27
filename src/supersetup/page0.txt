@@ -1,0 +1,95 @@
+[globalsetup]
+# 0-100
+ledbright = [30]
+
+# 0-100
+screenbright = [80]
+
+# on / off
+midithrough = [off]
+
+# on / off
+# Selecting black or white fonts according to the wallpaper background
+dark_fonts = [off]
+
+# 123 / abc3 / abc4 / abc5 / abc8
+# Setting 123 is to display the PC as a numerical value
+# abc3 means PC display as 1A,1B,1C,2A... abc5 means 1A,1B,1C,1D,1E,2A...
+display_number_ABC = [abc5]
+
+# 0 / 1 
+# set to 1 so that the displayed PC number starting from 1 (PC value +1)
+# set to 0 so that the displayed PC number starting from 0 (actual PC value)
+display_pc_offset = [1]
+
+# 0 / 1 
+# set to 0 so that when abcX display selected above, start from 0A,0B,0C...
+# set to 1 so that when abcX display selected above, start from 1A,1B,1C...
+display_bank_offset = [1]
+
+# wp1 / wp2 / wp3
+wallpaper = [wp3]
+
+# 1 / 1.5 / 2 / 2.5
+# long press time in second
+long_press_timing = [1]
+
+
+[PAGE]
+# Change the "NAME" below in uppercase letters <= 4 characters
+page_name = [KPP]
+
+[key0]
+keytimes = [1]
+ledmode = [select]
+ledcolor1 = [0x00ffff][0x00ffff][0x00ffff]
+short_up1 = [1][PC][auto][0] [1][SE][0x002033][0x027f41003d03] [1][SE][0x002033][0x027F43000001] [1][SE][0x002033][0x027f41003203] [1][SE][0x002033][0x027f41003303] [1][SE][0x002033][0x027f41003c03] 
+long1 = [1][CCT][27][127] [1][SE][0x002033][0x027f41003c03]
+
+
+
+[key1]
+keytimes = [1]
+ledmode = [select]
+ledcolor1 = [0x00ffff][0x00ffff][0x00ffff]
+short_up1 = [1][PC][auto][1] [1][SE][0x002033][0x027F43000001] [1][SE][0x002033][0x027f41003203] [1][SE][0x002033][0x027f41003303] [1][SE][0x002033][0x027f41003c03] [1][SE][0x002033][0x027f41003d03] 
+long1 = [1][CCT][29][127] [1][SE][0x002033][0x027f41003d03]
+
+
+
+[key2]
+keytimes = [1]
+ledmode = [select]
+ledcolor1 = [0x00ffff][0x00ffff][0x00ffff]
+short_up1 = [1][PC][auto][2] [1][SE][0x002033][0x027F43000001] [1][SE][0x002033][0x027f41003203] [1][SE][0x002033][0x027f41003303] [1][SE][0x002033][0x027f41003c03] [1][SE][0x002033][0x027f41003d03] 
+long1 = [1][PC][auto][bank_inc] [1][SE][0x002033][0x027F43000001] [1][SE][0x002033][0x027f41003203] [1][SE][0x002033][0x027f41003303] [1][SE][0x002033][0x027f41003c03] [1][SE][0x002033][0x027f41003d03] 
+
+
+
+[key3]
+keytimes = [1]
+ledmode = [select]
+ledcolor1 = [0x00ffff][0x00ffff][0x00ffff]
+short_up1 = [1][PC][auto][3] [1][SE][0x002033][0x027F43000001] [1][SE][0x002033][0x027f41003203] [1][SE][0x002033][0x027f41003303] [1][SE][0x002033][0x027f41003c03] [1][SE][0x002033][0x027f41003d03] 
+long1 = [1][CCT][17][127] [1][SE][0x002033][0x027f41003203]
+
+
+
+[key4]
+keytimes = [1]
+ledmode = [select]
+ledcolor1 = [0x00ffff][0x00ffff][0x00ffff]
+short_up1 = [1][PC][auto][4] [1][SE][0x002033][0x027F43000001] [1][SE][0x002033][0x027f41003203] [1][SE][0x002033][0x027f41003303] [1][SE][0x002033][0x027f41003c03] [1][SE][0x002033][0x027f41003d03] 
+long1 = [1][CCT][18][127] [1][SE][0x002033][0x027f41003303]
+
+
+
+
+[key5]
+keytimes = [1]
+ledmode = [tap]
+ledcolor1 = [0xff0000][0xff0000][0xff0000]
+short_up1 = [1][CC][30][1]
+long1 = [1][PC][auto][bank_dec] [1][SE][0x002033][0x027F43000001] [1][SE][0x002033][0x027f41003203] [1][SE][0x002033][0x027f41003303] [1][SE][0x002033][0x027f41003c03] [1][SE][0x002033][0x027f41003d03] 
+
+
