@@ -198,7 +198,7 @@ class FootSwitch:
 # CENTER_X = int(disp_height/2)
 
 
-# Make display context
+# Make display context for Rig presentation
 splash = displayio.Group()
 display.rootgroup = splash
 
@@ -206,6 +206,7 @@ display.rootgroup = splash
 font = bitmap_font.load_font("/fonts/PTSans-NarrowBold-40.pcf")
 # font = bitmap_font.load_font("/fonts/PT40.pcf")
 font_H20 = bitmap_font.load_font("/fonts/H20.pcf")
+font_PT75 = bitmap_font.load_font("/fonts/PT75.pcf")
 wrap_with = 240  # in pixel
 
 
@@ -272,6 +273,18 @@ splash.append(text_group_Log)
 # activate Display
 display.show(splash)
 
+
+# Make display context for Tuner presentation
+TunerSplash = displayio.Group()
+
+# show Tuner Note
+text_group_tuner = displayio.Group(scale=1)
+text_area_tuner = label.Label(font, text="F", color=0xFFFFFF, scale=3)
+text_area_tuner.anchor_point = (0.5, 0.5)
+text_area_tuner.anchored_position = (120, 120)
+text_group_tuner.append(text_area_tuner)  # Subgroup for text scaling
+TunerSplash.append(text_group_tuner)
+
 # function to control neopixel segments - color in full brightness
 def light_active(x, c):
     # print(str(x) + ' : ' + str(c[0]))
@@ -309,7 +322,7 @@ def light_off(x):
     # deactivate switch
     switch[x].state = "na"
     return
-    
+
 
 # function to control neopixel segments - color in full brightness
 def get_module_name(x):
@@ -364,7 +377,7 @@ def get_module_name(x):
 def send_beacon():
     text_Log_area.text = 'connection established'
     # I use Parameter Set 2
-    
+
     # init off
     # use Sysex response (on)
     # echo off
@@ -372,8 +385,8 @@ def send_beacon():
     # NOCTOR on
     # TUNEMODE on
     # -> 0x32
-    
-   
+
+
     # init off
     # use Sysex response
     # echo on
@@ -381,7 +394,7 @@ def send_beacon():
     # NOCTOR on
     # TUNEMODE on
     # -> 0x36
-    
+
     # send beacon
     midi_usb.send(SystemExclusive([0x00, 0x20, 0x33],
                                   [0x02, 0x7f, 0x7e, 0x00, 0x40, 0x02, 0x32, 0x7f]))
@@ -401,7 +414,7 @@ def send_initbeacon():
     midi_usb.send(SystemExclusive([0x00, 0x20, 0x33],
                                   [0x02, 0x7f, 0x7e, 0x00, 0x40, 0x02, 0x33, 0x04]))
     con_init = True
-    get_kpp_effect_status() # workaround while Kemper is sending false status 
+    get_kpp_effect_status() # workaround while Kemper is sending false status
     return
 
 # function to get Kemper Effect Status Infos
@@ -418,8 +431,16 @@ def get_kpp_effect_status():
     # Stomp Status
     midi_usb.send(SystemExclusive([0x00, 0x20, 0x33],
                                   [0x02, 0x7f, 0x41, 0x00, 0x3d, 0x03]))
-                                  
+
     return
+
+# function for tuner notes
+def integer_to_note(x):
+    notes = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B']
+    while x > 11:
+        x = x -12
+
+    return notes[x]
 
 # Define Switch Objects to hold data
 switch = []
@@ -543,7 +564,7 @@ while True:
                 string_msg = 'ProgramChange'
                 string_val = str(midimsg.patch)
                 text_Log_area.text = ''
-                                        
+
                 # reset activated 'Booster' on Switch 5
                 if switch[5].state == "on":
                     light_dim(5, switch[5].color)
@@ -560,7 +581,7 @@ while True:
                     # TAP Message
                     # message changing between 0 and 1 on last digit
                     string_msg = ''
-                
+
                 # Rig Name
                 elif response[:6] == [0x00, 0x00, 0x03, 0x00, 0x00, 0x01]:
 
@@ -591,7 +612,7 @@ while True:
                         switch_number = switch_rev
                     else:
                         switch_number = 99
-                    
+
                     if (response[5] == 0x00) and (switch_number != 99):   # Effect Type Response
 
                         # Effect Type in last 2 list elements
@@ -619,7 +640,7 @@ while True:
                         else:
                             # update new color in object
                             switch[switch_number].setcolor()
-                            
+
                             if switch_number == 0:
                                 text_DLY_area.text = get_module_name(effecttype)
                                 splash[switch_number] = Rect(1, 1, 120, 40, fill=palette[switch[switch_number].bitmap_palette_index], outline=0x0, stroke=1)
@@ -646,6 +667,17 @@ while True:
                                 light_active(switch_number, switch[switch_number].color)
                             elif (response[-1] == 0x00):
                                 light_dim(switch_number, switch[switch_number].color)
+
+                    # tuner infos
+                    elif response[:-2] == [0x00, 0x00, 0x01, 0x00, 0x7f, 0x7e] and len(response) == 8:
+                        if response[-1] == 0x01:   # show tuner
+                            display.show(TunerSplash)
+                        else:                      # deactivate tuner
+                            display.show(splash)
+                                    # tuner infos
+                    elif response[:-2] == [0x00, 0x00, 0x01, 0x00, 0x7d, 0x54] and len(response) == 8:
+                        text_area_tuner.text = integer_to_note(response[-1])
+
                     else:
                         #nothing to do
                         #text_Log_area.text = 'MIDI Info ' + str(response)
