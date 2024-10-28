@@ -14,7 +14,9 @@ You should now see your device as MIDICAPTAIN on your computer.
 
 3. Than you can copy the files from the source (src) directory to your MIDI Captain device.
 
-Now you have different firmware version on your device available.  
+Now you have different firmware version on your device available. 
+
+<h2>Change between installed Firmware</h2>
 By pressing a switch while turning on your MIDI captain you can choose:
 
 foot switch 1 - enabling USB disk for conniction to your computer  
@@ -23,3 +25,10 @@ foot switch 3 - MIDI Captain control and request values from KPP via MIDI comman
 foot switch A - bidirectional communication between KPP and MIDI Captain  
 
 
+<h2>Features of bidirectional Firmware</h2>
+* Switch LED color reflects to effect typ of the associated slot. 
+* Switch LED brightness reflects effects on/off state
+* Switch status follows changes on KPP
+* Display shows effects types names of 4 slots
+* Rig name is also shown
+* and new: while tuning your guitar you see tuning note name
