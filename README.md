@@ -26,9 +26,9 @@ foot switch A - bidirectional communication between KPP and MIDI Captain
 
 
 <h2>Features of bidirectional Firmware</h2>
-* Switch LED color reflects to effect typ of the associated slot  
-* Switch LED brightness reflects effects on/off state  
-* Switch status follows changes on KPP  
-* Display shows effects types names of 4 slots  
-* Rig name is also shown  
-* and new: while tuning your guitar you see tuning note name  
+- Switch LED color reflects to effect typ of the associated slot  
+- Switch LED brightness reflects effects on/off state  
+- Switch status follows changes on KPP  
+- Display shows effects types names of 4 slots  
+- Rig name is also shown  
+- and new: while tuning your guitar you see tuning note name  
