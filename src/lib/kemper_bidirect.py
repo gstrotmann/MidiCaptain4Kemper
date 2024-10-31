@@ -6,6 +6,7 @@ import time
 from adafruit_display_text import label, wrap_text_to_pixels
 from adafruit_bitmap_font import bitmap_font
 from adafruit_display_shapes.rect import Rect
+import adafruit_imageload
 import usb_midi
 import adafruit_midi  # MIDI protocol encoder/decoder library
 from adafruit_midi.control_change import ControlChange
@@ -92,6 +93,7 @@ midi_usb = adafruit_midi.MIDI(midi_out=usb_midi.ports[1],
 
 con_init = False
 con_established = False
+tuningnote = 0
 
 # ### Configure Software ###
 
@@ -278,12 +280,42 @@ display.show(splash)
 TunerSplash = displayio.Group()
 
 # show Tuner Note
+# Setup the file as the bitmap data source
+bitmap = displayio.OnDiskBitmap("/images/TunerDisplay.bmp")
+
+# Create a TileGrid to hold the bitmap
+wp_grid = displayio.TileGrid(bitmap, pixel_shader=bitmap.pixel_shader)
+
+# Load the sprite sheet (bitmap)
+sprite_sheet, tunerpalette = adafruit_imageload.load("/images/TunerSprite.bmp",
+                                                bitmap=displayio.Bitmap,
+                                                palette=displayio.Palette)
+tunerpalette.make_transparent(0)
+
+# Create a sprite (tilegrid)
+sprite = displayio.TileGrid(sprite_sheet, pixel_shader=tunerpalette,
+                            width = 1,
+                            height = 1,
+                            tile_width = 50,
+                            tile_height = 50)
+# Create a Group to hold the sprite
+spritegroup = displayio.Group(scale=1)
+
+# Add the sprite to the Group
+spritegroup.append(sprite)
+spritegroup.y=15
+
+
 text_group_tuner = displayio.Group(scale=1)
-text_area_tuner = label.Label(font, text="F", color=0xFFFFFF, scale=3)
+# Add the Wallpaer TileGrid to the Group
+text_group_tuner.append(wp_grid)
+
+text_area_tuner = label.Label(font, text="--", color=0xFFFFFF, scale=3)
 text_area_tuner.anchor_point = (0.5, 0.5)
-text_area_tuner.anchored_position = (120, 120)
+text_area_tuner.anchored_position = (120, 150)
 text_group_tuner.append(text_area_tuner)  # Subgroup for text scaling
 TunerSplash.append(text_group_tuner)
+TunerSplash.append(spritegroup)
 
 # function to control neopixel segments - color in full brightness
 def light_active(x, c):
@@ -674,9 +706,36 @@ while True:
                             display.show(TunerSplash)
                         else:                      # deactivate tuner
                             display.show(splash)
-                                    # tuner infos
+                    # tuner notes infos
                     elif response[:-2] == [0x00, 0x00, 0x01, 0x00, 0x7d, 0x54] and len(response) == 8:
                         text_area_tuner.text = integer_to_note(response[-1])
+                    elif response[:-2] == [0x00, 0x00, 0x01, 0x00, 0x7c, 0x0f] and len(response) == 8:
+                        tuniningrate = response[-2] * 128 + response[-1]
+                        xposition = int(tuniningrate / 8192 * 120)
+                        if xposition <= 25:
+                            xposition = 26
+                        elif xposition >=215:
+                            xposition = 215
+                        spritegroup.x = xposition - 25   # middle of sprite width
+                        if (tuniningrate == 0):
+                            sprite[0] = 0
+                        elif (tuniningrate >= 7992 ) and (tuniningrate <= 8392):
+                            sprite[0] = 4
+                        elif (tuniningrate <= 2000):
+                            sprite[0] = 1
+                        elif (tuniningrate <= 5000):
+                            sprite[0] = 2
+                        elif (tuniningrate <= 7991):
+                            sprite[0] = 3
+                        elif (tuniningrate <= 11392):
+                            sprite[0] = 5
+                        elif (tuniningrate <= 14392):
+                            sprite[0] = 6
+                        else:
+                            sprite[0] = 7                        
+                        #sprite[0] = int(xposition / 25)
+
+
 
                     else:
                         #nothing to do
