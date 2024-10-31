@@ -32,7 +32,10 @@ foot switch A - bidirectional communication between KPP and MIDI Captain
 - Switch status follows changes on KPP
 - Display shows effects types names of 4 slots
 - Rig name is also shown
-- and new: while tuning your guitar you see tuning note name
+- and new: while tuning your guitar you see tuning note name and tuning info
+
+![tuner](./doc/images/midicaptain_tuner.jpg)
+
 
 
 
