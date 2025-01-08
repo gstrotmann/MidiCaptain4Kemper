@@ -17,3 +17,9 @@ src/lib/asyncio/.DS_Store
 src/res/.DS_Store
 .DS_Store
 
+doc/images/RigModus.psd
+doc/images/StompModus.psd
+doc/images/TunerDisplay.psd
+doc/images/views.psd
+doc/images/MidiCaptain.psd
+.gitignore

@@ -187,8 +187,8 @@ elif firmware_ID == 3:
 elif firmware_ID == 4:
    import kemper_bidirect
 elif firmware_ID == 5:
-   import kemperstomp
+   import kemper_bidirect
 elif firmware_ID == 6:
-   import display_test
+   import kemper_bidirect
 else:
     import kemperstomp
