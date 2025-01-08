@@ -6,7 +6,9 @@ alternative firmware for MidiCaptain footswitches to interact with Kemper Profil
 This extension is set on original [PaintAudio firmware 3.5](https://cdn.shopify.com/s/files/1/0656/8312/8548/files/FW_MINI6_KPP_V3.51.zip?v=1711205983)
 
 <h2>Three different views will be shown</h2>
+
 ![views](./doc/images/views.png)
+
 
 <h3>Stomp / Effect View</h3>
 Display shows rig name, bank number and name extension that is in '()' in rig name.
@@ -67,6 +69,7 @@ You should now see your device as MIDICAPTAIN on your computer.
 Now you have different firmware version on your device available. 
 
 <h2>Change between installed Firmware</h2>
+
 ![views](./doc/images/MidiCaptain.png)
 
 By pressing a switch while turning on your MIDI captain you can choose:
